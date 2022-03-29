@@ -1,4 +1,6 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,ListView,DetailView,CreateView,UpdateView,DeleteView
+from .models import todoinf
+from django.urls import reverse_lazy
 
 class HomeView(TemplateView):
     template_name = "home.html"
@@ -13,3 +15,31 @@ class LoginView(TemplateView):
 
 class SignupView(TemplateView):
     template_name = "signup.html"
+
+class TodoView(ListView):
+    model =todoinf
+    context_object_name ="tasks"
+    template_name = "todo.html"
+
+class TodoDetail(DetailView):
+    model =todoinf
+    context_object_name = "detail"
+    template_name = "todo_detail.html"
+
+class TodoCreate(CreateView):
+    model =todoinf
+    fields = ['title', 'description','deadline']
+    success_url =reverse_lazy("list")
+    template_name = "todo_create.html"
+
+class TodoUpdate(UpdateView):
+    model =todoinf
+    fields = ['title', 'description','deadline']
+    success_url =reverse_lazy("list")
+    template_name = "todo_create.html"
+
+class TodoDelete(DeleteView):
+    model =todoinf
+    context_object_name = "delete"
+    success_url =reverse_lazy("list")
+    template_name = "todo_delete.html"

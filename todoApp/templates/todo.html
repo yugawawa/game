@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h1>Todo List</h1>
+
+<p><a href="{% url 'create' %}">新規作成</a>
+<table rules="all">
+    <thead>
+        <tr>
+            <th align=left>タスク名</th>
+            <th align=left>更新日</th>
+            <th align=left>期限</th>
+        </tr>
+    </thead>
+    <body>
+    {% for task in tasks %}
+    <tr>
+        <td>{{ task.title }}</td>
+        <td>{{ task.updated }}</td>
+        <td>{{ task.deadline }}</td>
+        <td><a href="{% url 'detail' task.pk %}">詳細</a></td>
+        <td><a href="{% url 'update' task.pk %}">編集</a></td>
+        <td><a href="{% url 'delete' task.pk %}">削除</a></td>
+    </tr>
+    {% endfor %}
+    </body>
+</table>
+{% endblock %}
