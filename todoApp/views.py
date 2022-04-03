@@ -1,5 +1,7 @@
 from django.views.generic import TemplateView,ListView,DetailView,CreateView,UpdateView,DeleteView
+from django.contrib.auth.views import LoginView
 from .models import todoinf
+from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 
 class HomeView(TemplateView):
@@ -9,12 +11,11 @@ class HomeView(TemplateView):
         txt =super().get_context_data()
         txt["username"] =""
         return txt
+class Login(LoginView):
+    template_name = "registration/_login.html"
 
-class LoginView(TemplateView):
-    template_name = "login.html"
-
-class SignupView(TemplateView):
-    template_name = "signup.html"
+class IndexView(TemplateView):
+    template_name = "registration/index.html"
 
 class TodoView(ListView):
     model =todoinf
